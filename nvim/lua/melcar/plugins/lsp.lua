@@ -26,9 +26,12 @@ return {
         require("mason").setup()
         require("mason-lspconfig").setup({
             ensure_installed = {
+                "pyright",
                 "lua_ls",
                 "rust_analyzer",
                 "gopls",
+                "clangd",
+                "cmake"
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -40,6 +43,9 @@ return {
 
                 ["lua_ls"] = function()
                     local lspconfig = require("lspconfig")
+                    lspconfig.pyright.setup {
+                        capabilities = capabilities,
+                    }
                     lspconfig.lua_ls.setup {
                         capabilities = capabilities,
                         settings = {
